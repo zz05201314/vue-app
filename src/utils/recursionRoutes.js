@@ -1,13 +1,10 @@
-// 根据服务器用护返回得menulist数据和allRouter进行匹配
-
-
+// 根据服务器用护返回得menulist数据和allRoutes进行匹配
 import allRoutes from "../router/allRoutes"
 
 const recursionRoutes = (allRoutes, menuList) => {
     let userRoutes = []
-    allRoutes.forEeach(item => {
-        menuList.forEeach(v => {
-            // 匹配
+    allRoutes.forEach(item => {
+        menuList.forEach(v => {
             if (item.meta.name === v.name) {
                 if (v.children && v.children.length > 0) {
                     item.children = recursionRoutes(item.children, v.children)
@@ -18,10 +15,11 @@ const recursionRoutes = (allRoutes, menuList) => {
     })
     return userRoutes
 }
-
+// 测试
 // let menuList = [{
 //         "name": "管理首页"
-//     }, {
+//     },
+//     {
 //         "name": "学员管理",
 //         "children": [{
 //             "name": "学员项目管理"
@@ -32,7 +30,7 @@ const recursionRoutes = (allRoutes, menuList) => {
 //     }
 // ]
 
-// console.log(recursionRoutes(item.children, v.children));
+// console.log(recursionRoutes(allRoutes, menuList));
 
 
 export default recursionRoutes

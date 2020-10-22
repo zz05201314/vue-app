@@ -56,6 +56,7 @@
 
 //5.校验不通过,跳转到登入页
 import { login } from "@/api";
+import { mapMutations } from "vuex";
 export default {
   data() {
     /**
@@ -94,7 +95,7 @@ export default {
   },
   methods: {
     // 键盘事件
-
+    ...mapMutations(["SET_USERINFO"]),
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -112,11 +113,17 @@ export default {
             .then(res => {
               //  服务器响应，关闭对话框
               loading.close();
-              console.log(res);
+              // console.log(res);
               if (res.data.state) {
                 // 用户名密码正确
                 this.$message.success("登录成功");
                 localStorage.setItem("proj-token", res.data.token);
+                localStorage.setItem(
+                  "proj-userInfo",
+                  JSON.stringify(res.data.userInfo)
+                );
+                // 更改vuex中userinfo的值
+                this.SET_USERINFO(res.data.userInfo);
                 // 跳转登录页面
                 this.$router.push("/");
               } else {

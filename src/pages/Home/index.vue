@@ -7,8 +7,6 @@
         <el-menu
           default-active="1-4-1"
           class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose"
           :router="true"
           :collapse="isCollapse"
         >
@@ -58,8 +56,8 @@
               ><div class="grid-content bg-purple">
                 <span class="el-avatar"></span>
                 <span>欢迎您</span>
-                <b class="nickname"></b>
-                <span class="quit">退出</span>
+                <b class="nickname">{{ userInfo.nickname }}</b>
+                <span class="quit" @click="quit">退出</span>
               </div>
             </el-col>
           </el-row>
@@ -73,23 +71,31 @@
 </template>
 <script>
 import { getLoginLog } from "@/api";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       isCollapse: false
     };
   },
+  // 映射
+  computed: {
+    ...mapState(["userInfo"])
+  },
   mounted() {
     getLoginLog().then(res => {
-      console.log(res);
+      // console.log(res);
     });
   },
   methods: {
-    handleOpen(key, keyPath) {
-      // console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      // console.log(key, keyPath);
+    // 退出登录
+    quit() {
+      // 清除token和userInfo
+      // 跳珠到登入页
+      localStorage.removeItem("proj-token");
+      localStorage.removeItem("proj-userInfo");
+
+      this.$router.push("/login");
     }
   }
 };
@@ -108,7 +114,7 @@ export default {
 /* 用户名 */
 .nickname {
   margin-left: 10px;
-  color: rgb(255, 255, 255);
+  color: rgb(2, 255, 78);
   font-size: 15px;
   text-decoration: underline;
   cursor: pointer;

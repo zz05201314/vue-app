@@ -36,8 +36,8 @@ router.beforeEach((to, from, next) => {
     }
   }
 })
-
-import "./utils/recursionRoutes"
+// 测试
+// import "./utils/recursionRoutes"
 
 new Vue({
   router,
