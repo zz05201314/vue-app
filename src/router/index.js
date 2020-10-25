@@ -3,13 +3,16 @@ import VueRouter from "vue-router";
 import Home from '@/pages/Home'
 import Login from "../pages/Login";
 import allRoutes from "./allRoutes"
+// 进度条
+import NProgress from "nprogress"
+import 'nprogress/nprogress.css'
 Vue.use(VueRouter);
 
 // 合法路径地址
 const routes = [{
     path: "/login",
     component: Login
-  },
+  }
   // {
   //   path: "/",
   //   component: Home,

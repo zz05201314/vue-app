@@ -8,7 +8,7 @@ export default {
   mounted() {
     // console.log(123);
     // 测试menulist里的数据
-    this.$store.dispatch("FETCH_MENULIST");
+    // this.$store.dispatch("FETCH_MENULIST");
   }
 };
 </script>

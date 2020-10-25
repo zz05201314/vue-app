@@ -4,30 +4,14 @@
       <!-- 侧边栏 -->
       <el-aside width="200">
         <em class="logo"></em>
+        <!-- 菜单高亮样式-->
         <el-menu
-          default-active="1-4-1"
+          :default-active="$route.path"
           class="el-menu-vertical-demo"
           :router="true"
           :collapse="isCollapse"
         >
-          <el-menu-item index="1">
-            <i class="el-icon-menu"></i>
-            <span slot="title">管理首页</span>
-          </el-menu-item>
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span slot="title">学员管理</span>
-            </template>
-            <el-menu-item-group>
-              <!-- <span slot="title">学员项目管理</span> -->
-              <el-menu-item index="/Student">学员项目管理</el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">我的中心</span>
-          </el-menu-item>
+          <qf-sub-menu :sideMenu="menuList"></qf-sub-menu>
         </el-menu>
       </el-aside>
       <el-container>
@@ -39,9 +23,14 @@
                 <!-- [
                     'iconfont ',
                     isCollapse ? 'icon-zhankai' : 'icon-shouqi'
+
                   ] -->
+                <!--iconfont icon-zhankai -->
                 <i
-                  class="iconfont icon-zhankai"
+                  :class="[
+                    'iconfont',
+                    isCollapse ? 'icon-zhankai' : 'icon-shouqi'
+                  ]"
                   @click="isCollapse = !isCollapse"
                 ></i>
                 图标
@@ -63,6 +52,17 @@
           </el-row>
         </el-header>
         <el-main>
+          <!-- 处理面包屑 -->
+          <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item :to="{ path: '/Welcom' }"
+              >首页</el-breadcrumb-item
+            >
+            <el-breadcrumb-item
+              :to="{ path: crumb.path }"
+              v-for="crumb in crumbs"
+              >{{ crumb.meta.name }}</el-breadcrumb-item
+            >
+          </el-breadcrumb>
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -80,7 +80,7 @@ export default {
   },
   // 映射
   computed: {
-    ...mapState(["userInfo"])
+    ...mapState(["userInfo", "menuList", "crumbs"])
   },
   mounted() {
     getLoginLog().then(res => {
@@ -94,6 +94,8 @@ export default {
       // 跳珠到登入页
       localStorage.removeItem("proj-token");
       localStorage.removeItem("proj-userInfo");
+      // 刷新页面
+      window.location.reload();
 
       this.$router.push("/login");
     }
