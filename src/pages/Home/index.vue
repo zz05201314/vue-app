@@ -54,7 +54,7 @@
         <el-main>
           <!-- 处理面包屑 -->
           <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/Welcom' }"
+            <el-breadcrumb-item :to="{ path: '/Welcome' }"
               >首页</el-breadcrumb-item
             >
             <el-breadcrumb-item
@@ -62,6 +62,11 @@
               v-for="crumb in crumbs"
               >{{ crumb.meta.name }}</el-breadcrumb-item
             >
+            <!-- <el-breadcrumb-item v-for="item in crumb"
+                                :to="{ path: item.path || '/Welcome'
+                                }">
+              {{item.meta.name || "首页"}} -->
+            </el-breadcrumb-item>
           </el-breadcrumb>
           <router-view></router-view>
         </el-main>

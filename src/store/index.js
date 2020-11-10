@@ -21,12 +21,24 @@ export default new Vuex.Store({
     // 用户侧边栏
     menuList: [],
     // 面包屑
-    crumbs: []
+    crumbs: [],
+    // 控制dialog弹出框显示和隐藏
+    dialogVisible: false,
+    // dialog数据源
+    stuForm: {
+      name: '',
+      productUrl: '',
+      headimgurl: '',
+      class: '',
+      age: '',
+      city: '',
+      degree: '',
+      description: ''
+    }
   },
   mutations: {
     SET_USERINFO(state, payload) {
       state.userInfo = payload
-
     },
     // 动态添加
     SET_MENULIST(state, payload) {

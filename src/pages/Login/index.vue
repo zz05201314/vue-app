@@ -104,7 +104,8 @@ export default {
     };
     // 验证码校验
     var validateCaptcha = (rule, value, callback) => {
-      // 校验密码
+      // 校验验证码
+      // if (value === "" || value.length !== 5)
       if (value === "" || value.length !== 5) {
         callback(new Error("请输入验证码"));
       } else {
@@ -230,16 +231,6 @@ export default {
   transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, 0.2);
 }
-
-/* 背景视频 */
-/* .bg_video {
-  display: block;
-  margin: auto;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-} */
 /* 标题 */
 .title {
   color: #fff;

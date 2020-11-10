@@ -2,6 +2,8 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import bus from "./utils/bus"
+Vue.prototype.$bus = bus
 
 // 引入element-ui
 import ElementUI from 'element-ui';
@@ -17,6 +19,23 @@ import NProgress from "nprogress";
 // Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(qfSubMenu)
+
+//定义全局自定义指令 判断是否具备相应按钮权限
+// Vue.directive("haspermission", {
+//   bind(el, binding, VNode) {
+//     // console.log(el)
+//     let buttons = localStorage.getItem("proj-permission-buttons")
+//     if (!has(buttons, binding.value)) {
+//       //禁用按钮
+//       // console.log(el.className)
+//       //先储存class类名 在这基础上加上is-disabled禁用按钮
+//       let className = el.className;
+//       el.className = className + " " + "is-disabled"
+//       el.disabled = true
+//       // console.log(el)
+//     }
+//   }
+// })
 
 // 导航守卫（前置钩子
 router.beforeEach((to, from, next) => {
